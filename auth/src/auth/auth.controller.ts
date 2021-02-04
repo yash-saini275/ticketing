@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
-@Controller('auth')
-export class AuthController {}
+@Controller('api/users')
+export class AuthController {
+  @Get('currentUsers')
+  getUser(): string {
+    return 'Congrats basic setup complete.';
+  }
+}
