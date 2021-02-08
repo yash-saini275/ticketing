@@ -1,8 +1,7 @@
-FROM node:alpine
+FROM node:14
 
 WORKDIR /app
 COPY package.json .
-RUN npm update
 RUN npm install
 COPY . .
 

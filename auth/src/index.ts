@@ -19,7 +19,7 @@ app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 
-app.all('*', async (req, res) => {
+app.all('*', async (req: express.Request, res: express.Response) => {
   throw new NotFoundError();
 });
 
@@ -32,11 +32,16 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     })
+    .then(value => {
+      console.log('Successfully Connected to DB.');
+    })
     .catch(reason => {
       console.error(reason);
     });
+
+  app.listen(3000, () => {
+    console.log('Listening on port 3000');
+  });
 };
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000!!!!!!!!');
-});
+start();
