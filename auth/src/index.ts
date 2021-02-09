@@ -1,5 +1,5 @@
 import * as express from 'express';
-// import 'express-async-errors';
+import 'express-async-errors';
 import {json} from 'body-parser';
 import * as mongoose from 'mongoose';
 const cookieSession = require('cookie-session');
@@ -34,6 +34,9 @@ app.all('*', async (req: express.Request, res: express.Response) => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    console.log('JWT_KEY must be defined.');
+  }
   await mongoose
     .connect(config.DB_URL, {
       useNewUrlParser: true,
@@ -42,14 +45,13 @@ const start = async () => {
     })
     .then(value => {
       console.log('Successfully Connected to DB.');
+      app.listen(3000, () => {
+        console.log('Listening on port 3000');
+      });
     })
     .catch(reason => {
       console.error(reason);
     });
-
-  app.listen(3000, () => {
-    console.log('Listening on port 3000');
-  });
 };
 
 start();
