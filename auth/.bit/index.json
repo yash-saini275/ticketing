@@ -1,0 +1,162 @@
+[
+  {
+    "id": {
+      "scope": null,
+      "name": "bad-request-error"
+    },
+    "isSymlink": true,
+    "hash": "cd5c06deaf83e23e1b0c093735f0c081e714ede0"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "current-user"
+    },
+    "isSymlink": true,
+    "hash": "ee31d44795ce61edb86f81e108e9632c59b3e1b5"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "custom-error"
+    },
+    "isSymlink": true,
+    "hash": "f97c3ac57899faf35802e0e71e1d9d30facf1776"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "database-connection-error"
+    },
+    "isSymlink": true,
+    "hash": "7c2af5ea1a23e7320f3da97a2eec14e4330a9213"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "error-handler"
+    },
+    "isSymlink": true,
+    "hash": "7f600974b3f97483dcfd6f7816f1312936784312"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "not-authorized-error"
+    },
+    "isSymlink": true,
+    "hash": "9b8ecbc7b0ff0df7024c97e8186ee3fb8275794c"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "not-found-error"
+    },
+    "isSymlink": true,
+    "hash": "b5895b226f65e10f33892633d50e56289dd6845e"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "request-validation-error"
+    },
+    "isSymlink": true,
+    "hash": "79539b5d12da3a2a2400d7855902069aa2691d48"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "require-auth"
+    },
+    "isSymlink": true,
+    "hash": "e64ae4415ed89307ac1e716b61aae1108317defe"
+  },
+  {
+    "id": {
+      "scope": null,
+      "name": "validate-request"
+    },
+    "isSymlink": true,
+    "hash": "e33e2db9e2780db196d0729be3db199f360571da"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "bad-request-error"
+    },
+    "isSymlink": false,
+    "hash": "1bfd42a285a7ad29b580f5cb16d4ca81b0f15cbd"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "current-user"
+    },
+    "isSymlink": false,
+    "hash": "ede2037bf62a6edd5e5faf67867fafaf61a284bf"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "custom-error"
+    },
+    "isSymlink": false,
+    "hash": "4bab347a2d29ee123e3c79ab43cfa9ee524eaee9"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "database-connection-error"
+    },
+    "isSymlink": false,
+    "hash": "21d85614f72f4a2851c364be45b45f3ebd1076ef"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "error-handler"
+    },
+    "isSymlink": false,
+    "hash": "2918d9dd6cab9f5ff28d29dfc40f6c095c750ac5"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "not-authorized-error"
+    },
+    "isSymlink": false,
+    "hash": "0c04e3ac265ac961aee01429dbd5f0ab4de75de3"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "not-found-error"
+    },
+    "isSymlink": false,
+    "hash": "9cdf20f11a4d2e0638767bd041b89a7fc2ad7451"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "request-validation-error"
+    },
+    "isSymlink": false,
+    "hash": "971f69e5f23d2451cc50dc7defae3194d7a2615a"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "require-auth"
+    },
+    "isSymlink": false,
+    "hash": "afdd965a7569def3d46d0788ed403643b13951d4"
+  },
+  {
+    "id": {
+      "scope": "tickets.common",
+      "name": "validate-request"
+    },
+    "isSymlink": false,
+    "hash": "64898f7b3ebc356ca9512c829b4a6680ad30e0da"
+  }
+]
