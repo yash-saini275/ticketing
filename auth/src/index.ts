@@ -5,8 +5,13 @@ import {config} from './config';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
-    console.log('JWT_KEY must be defined.');
+    throw new Error('!!!JWT_KEY must be defined.!!!');
   }
+
+  if (!process.env.MONGO_URI) {
+    throw new Error('!!!MONGO_URI must be defined.!!!');
+  }
+
   await mongoose
     .connect(config.DB_URL, {
       useNewUrlParser: true,
