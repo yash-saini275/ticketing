@@ -1,7 +1,6 @@
 import * as mongoose from 'mongoose';
 
 import {app} from './app';
-import {config} from './config';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -13,7 +12,7 @@ const start = async () => {
   }
 
   await mongoose
-    .connect(config.DB_URL, {
+    .connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

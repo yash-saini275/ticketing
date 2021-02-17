@@ -2,9 +2,9 @@ import * as express from 'express';
 import {Request, Response} from 'express';
 import {body} from 'express-validator';
 import * as jwt from 'jsonwebtoken';
-import {BadRequestError} from '../errors/bad-request-error';
+import {BadRequestError} from '@ysaini_tickets/common';
 
-import {validateRequest} from '../middlewares/validate-request';
+import {validateRequest} from '@ysaini_tickets/common';
 import {User} from '../models/user';
 import {Password} from '../services/password';
 
