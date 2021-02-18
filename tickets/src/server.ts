@@ -1,4 +1,4 @@
 import {Application} from './app-config';
 
 const application = new Application();
-application.start(8080);
+application.start(3000);
