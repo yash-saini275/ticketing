@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 
 import {ticketsRouter} from './tickets/controller';
 import {DatabaseConfig} from './db-config';
+import {natsWrapper} from './nats-wrapper';
 
 class Application {
   private app: App;
@@ -11,6 +12,21 @@ class Application {
   constructor() {
     if (process.env.NODE_ENV !== 'test') {
       DatabaseConfig.connect();
+
+      natsWrapper.connect(
+        process.env.NATS_CLUSTER_ID!,
+        process.env.NATS_CLIENT_ID!,
+        process.env.NATS_URI!
+      );
+
+      natsWrapper.client.on('close', () => {
+        console.log('NATS connection closed.');
+        // eslint-disable-next-line no-process-exit
+        process.exit();
+      });
+
+      process.on('SIGINT', () => natsWrapper.client.close());
+      process.on('SIGTERM', () => natsWrapper.client.close());
     }
 
     this.app = new App(

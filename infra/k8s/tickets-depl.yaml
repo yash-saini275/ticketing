@@ -16,8 +16,16 @@ spec:
         - name: tickets
           image: ysaini/tickets
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name 
             - name: MONGO_URI
               value: 'mongodb://mongo-srv/tickets'
+            - name: NATS_URI
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

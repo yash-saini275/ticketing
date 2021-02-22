@@ -1,9 +1,11 @@
 // eslint-disable-next-line node/no-unpublished-import
 import * as request from 'supertest';
+import {natsWrapper} from '../../nats-wrapper';
 import {Ticket} from '../models';
 
+// jest.mock('../../nats-wrapper');
 // /api/tickets route test for creating a new ticket.
-describe(' POST /api/tickets tests for creating new ticket.', () => {
+describe('POST /api/tickets tests for creating new ticket.', () => {
   it('has a route handler listening to /api/tickets for post requests', async () => {
     const response = await request(global.app).post('/api/tickets').send({});
 
@@ -83,6 +85,21 @@ describe(' POST /api/tickets tests for creating new ticket.', () => {
     tickets = await Ticket.find({});
     expect(tickets.length).toEqual(1);
     expect(tickets[0].price).toEqual(10);
+  });
+
+  it('publishes an event', async () => {
+    const title = 'asdfsaf';
+
+    await request(global.app)
+      .post('/api/tickets')
+      .set('Cookie', global.signin())
+      .send({
+        title,
+        price: 20,
+      })
+      .expect(201);
+
+    expect(natsWrapper.client.publish).toBeCalled();
   });
 });
 
@@ -243,5 +260,29 @@ describe('PUT /api/tickets/:id. Update the ticket if it is created by logged in 
 
     expect(ticketResponse.body.title).toEqual('New Title');
     expect(ticketResponse.body.price).toEqual(40);
+  });
+
+  it('publishes an event', async () => {
+    const cookie = global.signin();
+
+    const response = await request(global.app)
+      .post('/api/tickets')
+      .set('Cookie', cookie)
+      .send({
+        title: 'ticket',
+        price: 20,
+      })
+      .expect(201);
+
+    await request(global.app)
+      .put(`/api/tickets/${response.body.id}`)
+      .set('Cookie', cookie)
+      .send({
+        title: 'New Title',
+        price: 40,
+      })
+      .expect(200);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

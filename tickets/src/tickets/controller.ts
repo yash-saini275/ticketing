@@ -1,11 +1,6 @@
 import {NextFunction, Request, Response, Router} from 'express';
 import {body} from 'express-validator';
-import {
-  NotFoundError,
-  requireAuth,
-  validateRequest,
-  NotAuthorizedError,
-} from '@ysaini_tickets/common';
+import {requireAuth, validateRequest} from '@ysaini_tickets/common';
 
 import {TicketsService} from './services';
 
