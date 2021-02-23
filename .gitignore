@@ -4,3 +4,4 @@ dist
 .bit
 build
 *-env
+__pycache__
