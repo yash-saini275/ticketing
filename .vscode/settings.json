@@ -4,5 +4,6 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "python.linting.flake8Path": "orders/orders-env/bin/flake8",
-  "python.formatting.provider": "autopep8"
+  "python.formatting.provider": "autopep8",
+  "python.pythonPath": "orders/orders-env/bin/python"
 }
