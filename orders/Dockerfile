@@ -1,13 +1,8 @@
-FROM python:3.7
+FROM node:14
 
 WORKDIR /app
-
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
+COPY package.json .
+RUN npm install --only=prod
 COPY . .
 
-EXPOSE 3000
-
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "3000", "--reload"]
+CMD ["npm", "start"]

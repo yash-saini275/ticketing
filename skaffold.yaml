@@ -30,5 +30,5 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/***/*.py'
+          - src: 'src/***/*.ts'
             dest: .
