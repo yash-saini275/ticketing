@@ -14,7 +14,7 @@ export interface TicketDoc extends mongoose.Document {
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
-  buils(attrs: TicketDto): TicketDoc;
+  build(attrs: TicketDto): TicketDoc;
 }
 
 const ticketSchema = new mongoose.Schema<TicketDoc, TicketModel>(
