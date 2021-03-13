@@ -21,6 +21,7 @@ describe('POST /api/orders test for creating new order', () => {
 
   it('returns an error if ticket is already reserved', async () => {
     const ticket = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'concert',
       price: 20,
     });
@@ -45,6 +46,7 @@ describe('POST /api/orders test for creating new order', () => {
 
   it('reserves a ticket', async () => {
     const ticket = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -59,6 +61,7 @@ describe('POST /api/orders test for creating new order', () => {
 
   it('Emits an order created event.', async () => {
     const ticket = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -76,6 +79,7 @@ describe('POST /api/orders test for creating new order', () => {
 
 const buildTicket = async (title: string, price: number) => {
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title,
     price,
   });
@@ -134,6 +138,7 @@ describe('GET /api/order/:orderId fetches specific order', () => {
   it('fetched the order', async () => {
     // Create a ticket.
     const ticketOne = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -163,6 +168,7 @@ describe('GET /api/order/:orderId fetches specific order', () => {
   it('not authorized error if user tries to fetch someone else order', async () => {
     // Create a ticket.
     const ticketOne = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -193,6 +199,7 @@ describe('DELETE /api/orders/:orderId to delete a order', () => {
   it('marks an order as cancelled', async () => {
     // Create a ticket
     const ticket = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -226,6 +233,7 @@ describe('DELETE /api/orders/:orderId to delete a order', () => {
   it('Emits an order cancelled event', async () => {
     // Create a ticket
     const ticket = Ticket.build({
+      id: mongoose.Types.ObjectId().toHexString(),
       title: 'Concert',
       price: 20,
     });
@@ -250,9 +258,6 @@ describe('DELETE /api/orders/:orderId to delete a order', () => {
       .send()
       .expect(204);
 
-    // Expectation to make sure order is cancelled
-    const updatedOrder = await Order.findById(order.id);
-
-    expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

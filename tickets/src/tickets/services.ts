@@ -1,4 +1,8 @@
-import {NotAuthorizedError, NotFoundError} from '@ysaini_tickets/common';
+import {
+  BadRequestError,
+  NotAuthorizedError,
+  NotFoundError,
+} from '@ysaini_tickets/common';
 import {TicketCreatedPublisher} from '../events/publishers/ticket-created-publisher';
 import {TicketUpdatedPublisher} from '../events/publishers/ticket-updated-publisher';
 import {natsWrapper} from '../nats-wrapper';
@@ -17,6 +21,7 @@ class TicketsService {
             title: ticket.title,
             price: ticket.price,
             userId: ticket.userId,
+            version: ticket.version,
           });
           resolve(ticket);
         })
@@ -54,6 +59,10 @@ class TicketsService {
             reject(new NotFoundError());
           }
 
+          if (ticket!.orderId) {
+            reject(new BadRequestError('Cannot edit a reserved ticket.'));
+          }
+
           if (ticket!.userId !== userId) {
             reject(new NotAuthorizedError());
           }
@@ -71,6 +80,7 @@ class TicketsService {
                 price: ticket.price,
                 userId: ticket.userId,
                 id: ticket.id,
+                version: ticket.version,
               });
 
               resolve(ticket);

@@ -1,9 +1,9 @@
 // eslint-disable-next-line node/no-unpublished-import
 import * as request from 'supertest';
+import * as mongoose from 'mongoose';
 import {natsWrapper} from '../../nats-wrapper';
 import {Ticket} from '../models';
 
-// jest.mock('../../nats-wrapper');
 // /api/tickets route test for creating a new ticket.
 describe('POST /api/tickets tests for creating new ticket.', () => {
   it('has a route handler listening to /api/tickets for post requests', async () => {
@@ -284,5 +284,32 @@ describe('PUT /api/tickets/:id. Update the ticket if it is created by logged in 
       .expect(200);
 
     expect(natsWrapper.client.publish).toHaveBeenCalled();
+  });
+
+  it('rejects updates if the ticket is reserved', async () => {
+    const cookie = global.signin();
+
+    const response = await request(global.app)
+      .post('/api/tickets')
+      .set('Cookie', cookie)
+      .send({
+        title: 'ticket',
+        price: 20,
+      })
+      .expect(201);
+
+    const ticket = await Ticket.findById(response.body.id);
+    ticket!.set({orderId: mongoose.Types.ObjectId().toHexString()});
+
+    await ticket!.save();
+
+    await request(global.app)
+      .put(`/api/tickets/${response.body.id}`)
+      .set('Cookie', cookie)
+      .send({
+        title: 'New Title',
+        price: 40,
+      })
+      .expect(400);
   });
 });

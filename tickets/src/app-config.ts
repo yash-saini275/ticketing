@@ -5,6 +5,8 @@ const cookieSession = require('cookie-session');
 import {ticketsRouter} from './tickets/controller';
 import {DatabaseConfig} from './db-config';
 import {natsWrapper} from './nats-wrapper';
+import {OrderCreatedListener} from './events/listeners/order-created-listener';
+import {OrderCancelledListener} from './events/listeners/order-cancelled-listener';
 
 class Application {
   private app: App;
@@ -27,6 +29,9 @@ class Application {
 
       process.on('SIGINT', () => natsWrapper.client.close());
       process.on('SIGTERM', () => natsWrapper.client.close());
+
+      new OrderCreatedListener(natsWrapper.client).listen();
+      new OrderCancelledListener(natsWrapper.client).listen();
     }
 
     this.app = new App(

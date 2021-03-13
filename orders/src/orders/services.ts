@@ -6,8 +6,8 @@ import {
   OrderStatus,
 } from '@ysaini_tickets/common';
 
-import {Ticket, TicketDto} from './models/ticket';
-import {Order, OrderDto} from './models/order';
+import {Ticket} from './models/ticket';
+import {Order} from './models/order';
 import {OrderCreatedPublisher} from '../events/publishers/order-created-publisher';
 import {natsWrapper} from '../nats-wrapper';
 import {OrderCancelledPublisher} from '../events/publishers/order-cancelled-publisher';
@@ -58,6 +58,7 @@ export class OrdersService {
         id: ticket.id,
         price: ticket.price,
       },
+      version: order.version,
     });
 
     return order;
@@ -104,6 +105,7 @@ export class OrdersService {
       ticket: {
         id: order.ticket.id,
       },
+      version: order.version,
     });
 
     return order;
