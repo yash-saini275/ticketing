@@ -2,13 +2,11 @@ import {json} from 'body-parser';
 import {currentUser, App} from '@ysaini_tickets/common';
 const cookieSession = require('cookie-session');
 
-import {OrdersController} from './orders/controllers';
 import {DatabaseConfig} from './db-config';
 import {natsWrapper} from './nats-wrapper';
-import {TicketCreatedListener} from './events/listeners/ticket-created-listener';
-import {TicketUpdatedListener} from './events/listeners/ticket-updated-listener';
-import {ExpirationCompleteListener} from './events/listeners/expiration-complete-listener';
-import {PaymentCreatedListener} from './events/listeners/payment-created-listener';
+import {OrderCreatedListener} from './payments/events/listeners/order-created-listener';
+import {OrderCancelledListener} from './payments/events/listeners/order-cancelled-listener';
+import {paymentsRouter} from './payments/controllers';
 
 class Application {
   private app: App;
@@ -32,14 +30,12 @@ class Application {
       process.on('SIGINT', () => natsWrapper.client.close());
       process.on('SIGTERM', () => natsWrapper.client.close());
 
-      new TicketCreatedListener(natsWrapper.client).listen();
-      new TicketUpdatedListener(natsWrapper.client).listen();
-      new ExpirationCompleteListener(natsWrapper.client).listen();
-      new PaymentCreatedListener(natsWrapper.client).listen();
+      new OrderCreatedListener(natsWrapper.client).listen();
+      new OrderCancelledListener(natsWrapper.client).listen();
     }
 
     this.app = new App(
-      [OrdersController.controller()],
+      [paymentsRouter],
       [
         json(),
         cookieSession({
