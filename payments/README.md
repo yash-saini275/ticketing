@@ -1,5 +1,5 @@
 # Payments Service
-Paymenta service makes the payment for the created orders.
+Payments service makes the payment for the created orders.
 
 # Endpoints
 Prefix:- /api/payments
